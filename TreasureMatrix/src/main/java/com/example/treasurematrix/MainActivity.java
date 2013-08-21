@@ -3,6 +3,8 @@ package com.example.treasurematrix;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -10,6 +12,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initMatrix();
     }
 
 
@@ -19,5 +23,36 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
+    // TODO: make they elegant in their own class.
+    private int rows = 9;
+    private int cols = 6;
+    private int[][] matrix = { {  1,  1,  2,  4,  7, 11 },
+                               {  1,  3,  3,  8, 17, 22 },
+                               {  2,  5,  9, 15, 23, 23 },
+                               {  3,  8, 12, 16, 29, 40 },
+                               {  5, 18, 21, 23, 43, 55 },
+                               {  8, 29, 38, 42, 61, 77 },
+                               { 13, 32, 44, 63, 79, 82 },
+                               { 21, 37, 51, 65, 83, 90 },
+                               { 34, 46, 71, 88, 97, 99 } };
+    private void initMatrix() {
+        for (int i=0; i<rows; i++) {
+            for (int j=0; j<cols; j++) {
+                int id = getResources().getIdentifier("button_" + i + j, "id", getPackageName());
+                final String cell = Integer.toString(matrix[i][j]);
+                final Button btn = (Button) findViewById(id);
+                btn.setEnabled(true);
+                btn.setText("");
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        btn.setEnabled(false);
+                        btn.setText(cell);
+                    }
+                });
+            }
+        }
+    }
+
 }
