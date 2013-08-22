@@ -1,8 +1,10 @@
 package com.example.treasurematrix;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,6 +25,25 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_new_game:
+                initMatrix();
+                return true;
+            case R.id.action_about:
+                AlertDialog.Builder aboutDialog = new AlertDialog.Builder(this);
+                aboutDialog.setTitle("Treasure Matrix")
+                           .setMessage( "An open source puzzle game.\n\n" +
+                                        "neizod studio © 2013" )
+                           .show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     // TODO: make they elegant in their own class.
     private int rows = 9;
